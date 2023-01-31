@@ -1,0 +1,264 @@
+CREATE TABLE automobile(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    marca VARCHAR(50) NOT NULL ,
+    modello VARCHAR(50) NOT NULL,
+    anno INT NOT NULL,
+    prezzo DOUBLE NOT NULL CHECK (prezzo>0),
+    km INT NOT NULL CHECK (km>=0),
+    carburante_id INT NOT NULL REFERENCES carburante(id),
+    n_porte_id INT NOT NULL REFERENCES n_porte(id),
+    colore_id INT NOT NULL REFERENCES colore(id) ,
+    cilindrata INT NOT NULL CHECK (cilindrata>50),
+    cambio_id INT NOT NULL REFERENCES cambio(id),
+    venditore_id INT NOT NULL REFERENCES venditore(id),
+	id_utente INT NOT NULL REFERENCES utente(id)
+);
+
+CREATE TABLE annuncio(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    titolo VARCHAR(50) NOT NULL,
+	data_annuncio DATE NOT NULL,
+	citta VARCHAR(50) NOT NULL,
+	provincia CHAR(2) NOT NULL,
+	cap  CHAR(5) NOT NULL,
+    id_utente INT NOT NULL REFERENCES utente(id),
+    id_automobile INT NOT NULL REFERENCES automobile(id)
+);
+
+CREATE TABLE utente(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    cognome VARCHAR(50) NOT NULL,
+    mail VARCHAR(50) UNIQUE NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE foto(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(50) NOT NULL,
+	id_annuncio INT NOT NULL REFERENCES annuncio(id)
+);
+
+CREATE TABLE carburante(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(50) NOT NULL
+);
+CREATE TABLE colore(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(50) NOT NULL UNIQUE
+);
+CREATE TABLE cambio(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(50) NOT NULL UNIQUE
+);
+CREATE TABLE n_porte(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	nome INT NOT NULL 
+);
+CREATE TABLE venditore(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(50) NOT NULL UNIQUE
+);
+
+DROP TABLE automobile;
+DROP TABLE annuncio;
+DROP TABLE utente;
+DROP TABLE foto;
+DROP TABLE colore;
+DROP TABLE venditore;
+DROP TABLE cambio;
+DROP TABLE n_porte;
+DROP TABLE carburante;
+
+
+
+
+
+INSERT INTO venditore VALUES(1,"PRIVATO");
+INSERT INTO venditore VALUES(2,"AZIENDA");
+
+
+INSERT INTO n_porte VALUES(1,3);
+INSERT INTO n_porte VALUES(2,5);
+INSERT INTO n_porte VALUES(3,7);
+
+INSERT INTO cambio VALUES(1,"AUTOMATICO");
+INSERT INTO cambio VALUES(2,"MANUALE");
+INSERT INTO cambio VALUES(3,"SEQUENZIALE");
+
+INSERT INTO colore VALUES(1,"VERDE");
+INSERT INTO colore VALUES(2,"GRIGIO");
+INSERT INTO colore VALUES(3,"BLU");
+INSERT INTO colore VALUES(4,"BIANCO");
+INSERT INTO colore VALUES(5,"NERO");
+INSERT INTO colore VALUES(6,"ROSSO");
+INSERT INTO colore VALUES(7,"GIALLO");
+INSERT INTO colore VALUES(8,"VIOLA");
+INSERT INTO colore VALUES(9,"MARRONE");
+
+
+INSERT INTO carburante VALUES(1,"BENZINA");
+INSERT INTO carburante VALUES(2,"METANO");
+INSERT INTO carburante VALUES(3,"GPL");
+INSERT INTO carburante VALUES(4,"DIESEL");
+INSERT INTO carburante VALUES(5,"ELETTRICO");
+INSERT INTO carburante VALUES(6,"IBRIDO");
+
+
+INSERT INTO automobile VALUES(1,'FIAT','PANDA','1998',5000,300000,2,2,1,1100,2,1,1);
+INSERT INTO automobile VALUES(2,'FIAT','PANDA','2008',3500,212000,1,2,2,1200,2,1,2);
+INSERT INTO automobile VALUES(3,'FIAT','PANDA','2016',5300,131000,4,2,4,1300,2,1,3);
+INSERT INTO automobile VALUES(4,'FIAT','PANDA','2016',10300,90000,3,2,3,1200,2,1,4);
+INSERT INTO automobile VALUES(5,'AUDI','A3','2018',16950,186000,4,2,5,1600,1,1,5);
+INSERT INTO automobile VALUES(6,'AUDI','A3','2016',18900,109000,4,2,4,2000,2,1,6);
+INSERT INTO automobile VALUES(7,'AUDI','RS3','2018',43900,98000,1,2,5,2500,2,2,7);
+INSERT INTO automobile VALUES(8,'ALFA ROMEO','STELVIO','2019',28900,119000,4,2,2,2200,1,1,8);
+INSERT INTO automobile VALUES(9,'ALFA ROMEO','GIULIA','2018',59500,50000,1,2,5,2900,3,1,9);
+INSERT INTO automobile VALUES(10,'ALFA ROMEO','STELVIO','2020',89000,26000,1,2,1,2900,1,1,10);
+INSERT INTO automobile VALUES(11,'BMW','320','2012',13000,150000,4,2,2,2000,3,1,11);
+INSERT INTO automobile VALUES(12,'BMW','320 M','2022',48000,18000,5,2,2,2000,1,1,12);
+INSERT INTO automobile VALUES(13,'BMW','M3','2017',60000,45000,'1',2,4,3000,1,2,13);
+INSERT INTO automobile VALUES(14,'MERCEDES-BENZ','A180','2017',14000,190000,'4',2,2,1400,1,1,14);
+INSERT INTO automobile VALUES(15,'MERCEDES-BENZ','A45 AMG','2020',59600,23000,'1',2,2,2000,3,1,15);
+INSERT INTO automobile VALUES(16,'MERCEDES-BENZ','C63 AMG','2019',81600,55000,'1',2,5,4000,3,1,16);
+INSERT INTO automobile VALUES(17,'MASERATI','GRANTURISMO','2016',73800,80000,'1',1,5,4500,1,1,17);
+INSERT INTO automobile VALUES(18,'MASERATI','GHIBLI','2021',67000,16000,'1',2,5,2000,1,1,18);
+INSERT INTO automobile VALUES(19,'MASERATI','GRANCABRIO','2018',127600,11000,'1',1,4,4600,1,1,19);
+INSERT INTO automobile VALUES(20,'RENAULT','CLIO','2019',11000,43000,'4',2,2,1500,2,2,20);
+INSERT INTO automobile VALUES(21,'RENAULT','MEGANE','2019',30000,77000,'1',2,4,1800,2,1,21);
+INSERT INTO automobile VALUES(22,'RENAULT','CLIO RS','2018',22000,81000,'1',2,4,1600,1,1,22);
+INSERT INTO automobile VALUES(23,'FERRARI','F8','2022',342000,9000,'1',1,6,3900,3,2,23);
+INSERT INTO automobile VALUES(24,'FERRARI','488','2016',220000,30000,'1',1,7,3900,3,2,24);
+INSERT INTO automobile VALUES(25,'FERRARI','CALIFORNIA','2016',149000,82000,'1',1,5,3900,3,2,25);
+
+
+INSERT INTO annuncio VALUES(1,'4X4 1100 METANO','2023-1-15','BARI','BA','70125',1,1);
+INSERT INTO annuncio VALUES(2,'1.2 BENZINA DUEALOGIC ','2023-1-10','RIVOLI','TO','10098',2,2);
+INSERT INTO annuncio VALUES(3,'1.3 mjt 16v Young 75cv ','2022-6-12','ROMA','RM','00198',3,3);
+INSERT INTO annuncio VALUES(4,'1.2 Easy Lounge ','2023-1-15','TORINO','TO','10098',4,4);
+INSERT INTO annuncio VALUES(5,'Sportback 1.6 tdi Business s-tronic','2023-1-1','MILANO','MI','20026',5,5);
+INSERT INTO annuncio VALUES(6,'Sportback 2.0 tdi quattro 150cv','2022-5-1','SAVONA','SV','20024',6,6);
+INSERT INTO annuncio VALUES(7,'SPORTBACK 2.5 400CV QUATTRO S-TRONIC','2023-1-16','NAPOLI','NA','80016',7,7);
+INSERT INTO annuncio VALUES(8,'2.2 Turbodiesel 210 CV AT8 Q4','2023-1-3','BARI','BA','70123',8,8);
+INSERT INTO annuncio VALUES(9,' 2.9 t V6 Quadrifoglio 510cv','2021-5-3','MILANO','MI','20024',9,9);
+INSERT INTO annuncio VALUES(10,'2.9 V6 510cv Quadrifoglio Q4','2022-11-7','VERONA','VR','10023',10,10);
+INSERT INTO annuncio VALUES(11,'cat Eletta','2022-7-2','BERGAMO','BG','10345',11,11);
+INSERT INTO annuncio VALUES(12,'Touring Msport CL19 ACC','2023-1-2','FOGGIA','FG','71121',12,12);
+INSERT INTO annuncio VALUES(13,'AKRAPOVIC/PACK PERFORMANCE','2022-5-2','ROMA','RM','00119',13,13);
+INSERT INTO annuncio VALUES(14,'Sport MY16 FULL LED','2021-3-5','FIRENZE','FI','10019',14,14);
+INSERT INTO annuncio VALUES(15,'S Edition','2022-9-6','NAPOLI','NA','80011',15,15);
+INSERT INTO annuncio VALUES(16,'Classe Coupé','2023-1-16','MILANO','MI','20011',16,16);
+INSERT INTO annuncio VALUES(17,'4.7 Sport cambiocorsa','2021-2-10','TORINO','TO','10098',17,17);
+INSERT INTO annuncio VALUES(18,'GT Hybrid 330 CV MY22','2022-6-12','LUCERA','FG','71011',18,18);
+INSERT INTO annuncio VALUES(19,'4.7 MC','2022-10-1','ROMA','RM','00111',19,19);
+INSERT INTO annuncio VALUES(20,'1.5 Life 75cv','2022-4-15','MILANO','MI','20013',20,20);
+INSERT INTO annuncio VALUES(21,'1.8 tce RS 280cv','2022-11-19','BARI','BA','70013',21,21);
+INSERT INTO annuncio VALUES(22,'1.6 tce energy RS Trophy 220cv','2022-12-5','NAPOLI','NA','80013',22,22);
+INSERT INTO annuncio VALUES(23,'Tributo Coupe 3.9 ','2023-1-18','MILANO','MI','20017',23,23);
+INSERT INTO annuncio VALUES(24,'GTB','2022-3-7','ROMA','RM','00198',24,24);
+INSERT INTO annuncio VALUES(25,'3.9 Handling Speciale','2022-5-26','BARI','BA','70123',25,25);
+
+
+INSERT INTO utente VALUES(1,'MICHELE','GIAMPIETRO','michelegiamp@google.com','FoggiaAle','FOGGIA');
+INSERT INTO utente VALUES(2,'EUGENIO','DE PALO','eugeniodep99@google.com','myra bistrot','BARI');
+INSERT INTO utente VALUES(3,'DAVIDE','TAFURI','davidetaf98@google.com','forzajuve','NAPOLI');
+INSERT INTO utente VALUES(4,'PIO','PISCITELLI','pionapoli@google.com','forzanapoli','NAPOLI');
+INSERT INTO utente VALUES(5,'ELENA','NYEGREA','blondelena@google.com','elenaid','CAGLIARI');
+INSERT INTO utente VALUES(6,'TIZIANO','SERRITELLA','tizianoser@google.com','sertiziano','SALERNO');
+INSERT INTO utente VALUES(7,'ROBERTO','SERRITELLA','robertoser@google.com','serrirobertoo','SALERNO');
+INSERT INTO utente VALUES(8,'VINCENZO','TEOFILO','enzoteofilo@google.com','enzoteofilo5','BARI');
+INSERT INTO utente VALUES(9,'NICOLA','ALBANO','nicolaalbano@google.com','nicolalba','MILANO');
+INSERT INTO utente VALUES(10,'MARIO','ROSSI','mariorossi@google.com','mariored','VERONA');
+INSERT INTO utente VALUES(11,'ANDREA','VERDE','andreaverde@google.com','andreaverde','BERGAMO');
+INSERT INTO utente VALUES(12,'GUIDO','BIANCHI','guidobianchi@google.com','guidobianchi','FOGGIA');
+INSERT INTO utente VALUES(13,'DANIELE','MANCINI','danimancini@google.com','danimancini','ROMA');
+INSERT INTO utente VALUES(14,'LUCA','ROMANO','lucaromano@google.com','lucaromano','FIRENZE');
+INSERT INTO utente VALUES(15,'FILIPPO','ROSSI','filipporossi@google.com','filirossi','NAPOLI');
+INSERT INTO utente VALUES(16,'GIUSEPPE','RUSSO','giusepperusso@google.com','giusepperusso','MILANO');
+INSERT INTO utente VALUES(17,'CIRO','ESPOSITO','espositociro@google.com','ciroesp','TORINO');
+INSERT INTO utente VALUES(18,'SAMUELE','PINTO','samupinto@google.com','samupinto','LUCERA');
+INSERT INTO utente VALUES(19,'DANIELE','CORVINO','danielecorv@google.com','danielecorv','ROMA');
+INSERT INTO utente VALUES(20,'ANGELO','DELUCA','delucaangelo@google.com','angelodeluca','MILANO');
+INSERT INTO utente VALUES(21,'FRANCESCO','RENDINE','francescorendine@google.com','francescorendine','BARI');
+INSERT INTO utente VALUES(22,'FABIO','RUSSO','fabiorusso@google.com','fabiorusso','NAPOLI');
+INSERT INTO utente VALUES(23,'ANTONIO','BRUNO','brunoantonio@google.com','antoniobruno','MILANO');
+INSERT INTO utente VALUES(24,'FRANCESCO','NERI','francesconeri@google.com','francesconeri','ROMA');
+INSERT INTO utente VALUES(25,'FILIPPO','TUCCI','tuccifilippo@google.com','filippotucci','BARI');
+
+
+INSERT INTO foto VALUES(1,'https://tinyurl.com/8tv6wp67',1);
+INSERT INTO foto VALUES(2,'https://tinyurl.com/5ekp27wv',1);
+INSERT INTO foto VALUES(3,'https://tinyurl.com/yc6cm5ds',2);
+INSERT INTO foto VALUES(4,'https://tinyurl.com/mpty3pp4',2);
+INSERT INTO foto VALUES(5,'https://tinyurl.com/57xxwd23',2);
+INSERT INTO foto VALUES(6,'https://tinyurl.com/mshmkh4r',3);
+INSERT INTO foto VALUES(7,'https://tinyurl.com/98a7w8aj',3);
+INSERT INTO foto VALUES(8,'https://tinyurl.com/yc7x2k39',3);
+INSERT INTO foto VALUES(9,'https://tinyurl.com/yudmtd6f',4);
+INSERT INTO foto VALUES(10,'https://tinyurl.com/57axwr8j',4);
+INSERT INTO foto VALUES(11,'https://tinyurl.com/28fay3es',4);
+INSERT INTO foto VALUES(12,'https://tinyurl.com/y8vuxnwk',5);
+INSERT INTO foto VALUES(13,'https://tinyurl.com/32f2wsbj',5);
+INSERT INTO foto VALUES(14,'https://tinyurl.com/28vm72tz',5);
+INSERT INTO foto VALUES(15,'https://tinyurl.com/yck4xawm',5);
+INSERT INTO foto VALUES(16,'https://tinyurl.com/4rf9tzed',6);
+INSERT INTO foto VALUES(17,'https://tinyurl.com/bdd2yt3t',6);
+INSERT INTO foto VALUES(18,'https://tinyurl.com/2zuxbx4m',6);
+INSERT INTO foto VALUES(19,'https://tinyurl.com/2tu8wukt',7);
+INSERT INTO foto VALUES(20,'https://tinyurl.com/4tvkmhhj',7);
+INSERT INTO foto VALUES(21,'https://tinyurl.com/56a9ddpz',7);
+INSERT INTO foto VALUES(22,'https://tinyurl.com/2rw5sx62',8);
+INSERT INTO foto VALUES(23,'https://tinyurl.com/2tahkf2k',8);
+INSERT INTO foto VALUES(24,'https://tinyurl.com/553kbdfn',8);
+INSERT INTO foto VALUES(25,'https://tinyurl.com/bdh6as76',9);
+INSERT INTO foto VALUES(26,'https://tinyurl.com/bddnufc9',9);
+INSERT INTO foto VALUES(27,'https://tinyurl.com/ms9yras6',9);
+INSERT INTO foto VALUES(28,'https://tinyurl.com/2785hvu5',10);
+INSERT INTO foto VALUES(29,'https://tinyurl.com/b56erypx',10);
+INSERT INTO foto VALUES(30,'https://tinyurl.com/2bz3w2fu',10);
+INSERT INTO foto VALUES(31,'https://tinyurl.com/2s3h436w',11);
+INSERT INTO foto VALUES(32,'https://tinyurl.com/2bhbamcw',11);
+INSERT INTO foto VALUES(33,'https://tinyurl.com/3nsdheyu',11);
+INSERT INTO foto VALUES(34,'https://tinyurl.com/3sbusvjc',12);
+INSERT INTO foto VALUES(35,'https://tinyurl.com/ydpfppuw',12);
+INSERT INTO foto VALUES(36,'https://tinyurl.com/md6neafz',12);
+INSERT INTO foto VALUES(37,'https://tinyurl.com/yc4u5rby',13);
+INSERT INTO foto VALUES(38,'https://tinyurl.com/ydun9ha3',13);
+INSERT INTO foto VALUES(39,'https://tinyurl.com/bdctz4vv',13);
+INSERT INTO foto VALUES(40,'https://tinyurl.com/yyhbk7kx',14);
+INSERT INTO foto VALUES(41,'https://tinyurl.com/m353kw53',14);
+INSERT INTO foto VALUES(42,'https://tinyurl.com/3bfrxkhe',14);
+INSERT INTO foto VALUES(43,'https://tinyurl.com/2p8wmyen',15);
+INSERT INTO foto VALUES(44,'https://tinyurl.com/5t2v4b4n',15);
+INSERT INTO foto VALUES(45,'https://tinyurl.com/3tkpb6x7',15);
+INSERT INTO foto VALUES(46,'https://tinyurl.com/mr3atzab',16);
+INSERT INTO foto VALUES(47,'https://tinyurl.com/bdd2kejy',16);
+INSERT INTO foto VALUES(48,'https://tinyurl.com/yy3e2636',16);
+INSERT INTO foto VALUES(49,'https://tinyurl.com/5hdjur93',17);
+INSERT INTO foto VALUES(50,'https://tinyurl.com/486cb3jc',17);
+INSERT INTO foto VALUES(51,'https://tinyurl.com/t4h3ypkj',17);
+INSERT INTO foto VALUES(52,'https://tinyurl.com/59phd79u',18);
+INSERT INTO foto VALUES(53,'https://tinyurl.com/52pddrx4',18);
+INSERT INTO foto VALUES(54,'https://tinyurl.com/fhc8ck49',18);
+INSERT INTO foto VALUES(55,'https://tinyurl.com/38a9pskj',19);
+INSERT INTO foto VALUES(56,'https://tinyurl.com/2d6zkp47',19);
+INSERT INTO foto VALUES(57,'https://tinyurl.com/6x4xmjk7',19);
+INSERT INTO foto VALUES(58,'https://tinyurl.com/9a6f7eue',20);
+INSERT INTO foto VALUES(59,'https://tinyurl.com/mv6ck7fh',20);
+INSERT INTO foto VALUES(60,'https://tinyurl.com/3pefbwk5',20);
+INSERT INTO foto VALUES(61,'https://tinyurl.com/2epp8z5u',21);
+INSERT INTO foto VALUES(62,'https://tinyurl.com/25asm9d3',21);
+INSERT INTO foto VALUES(63,'https://tinyurl.com/43hxntm2',21);
+INSERT INTO foto VALUES(64,'https://tinyurl.com/2s4ehe3d',22);
+INSERT INTO foto VALUES(65,'https://tinyurl.com/bddm3z6h',22);
+INSERT INTO foto VALUES(66,'https://tinyurl.com/53tsyn7d',22);
+INSERT INTO foto VALUES(67,'https://tinyurl.com/24hsc2cy',23);
+INSERT INTO foto VALUES(68,'https://tinyurl.com/8dtfw8r8',23);
+INSERT INTO foto VALUES(69,'https://tinyurl.com/mr2m9yvf',23);
+INSERT INTO foto VALUES(70,'https://tinyurl.com/5n965efz',24);
+INSERT INTO foto VALUES(71,'https://tinyurl.com/2shz7tnw',24);
+INSERT INTO foto VALUES(72,'https://tinyurl.com/y5ec2wz2',24);
+INSERT INTO foto VALUES(73,'https://tinyurl.com/vv43t483',25);
+INSERT INTO foto VALUES(74,'https://tinyurl.com/yc5vjspc',25);
+INSERT INTO foto VALUES(75,'https://tinyurl.com/5n7ymc76',25);
